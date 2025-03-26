@@ -1,0 +1,359 @@
+/**
+ * 生命游戏样式
+ */
+
+/* 菜单按钮包装器 */
+.lifegame-btn-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0 10px;
+}
+
+/* 切换按钮 */
+.lifegame-toggle-button {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    color: var(--fg-color, white);
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.lifegame-toggle-button:hover {
+    color: var(--active-color, #64B5F6);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.lifegame-toggle-button span {
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+.lifegame-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lifegame-icon svg {
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+/* 容器 */
+.lifegame-container {
+    position: fixed;
+    top: 40px;
+    right: 10px;
+    background-color: rgba(30, 30, 30, 0.85);
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+    display: none;
+    width: 300px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    user-select: none;
+    overflow: hidden;
+}
+
+/* 拖动状态 */
+.lifegame-container.dragging {
+    opacity: 0.7;
+    cursor: move;
+}
+
+/* 锁定状态 */
+.lifegame-container.locked {
+    border: 1px solid rgba(76, 175, 80, 0.4);
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+}
+
+/* 标题栏 */
+.lifegame-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: move;
+    position: relative;
+    background: linear-gradient(to right, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
+}
+
+.lifegame-header.locked {
+    cursor: default;
+    background: linear-gradient(to right, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1));
+}
+
+/* 标题 */
+.lifegame-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+}
+
+.lifegame-title::before {
+    content: "🎮";
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+.lifegame-container.locked .lifegame-title::before {
+    content: "🔒";
+    color: #4CAF50;
+}
+
+/* 标题栏按钮 */
+.lifegame-header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.lifegame-pin-btn,
+.lifegame-close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.lifegame-pin-btn:hover,
+.lifegame-close-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.lifegame-pin-btn.active {
+    color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+/* 内容区域 */
+.lifegame-content {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 预览区域 */
+.lifegame-preview {
+    width: 100%;
+    height: 260px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lifegame-preview-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* 状态显示 */
+.lifegame-status {
+    text-align: center;
+    font-size: 1em;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* 按钮容器 */
+.lifegame-button-container {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* 按钮 */
+.lifegame-button {
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    flex: 1;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.lifegame-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.lifegame-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.lifegame-button-start {
+    background-color: #4CAF50;
+    background-image: linear-gradient(to bottom, #60c763, #4CAF50);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.lifegame-button-stop {
+    background-color: #f44336;
+    background-image: linear-gradient(to bottom, #ff5a4d, #f44336);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.lifegame-button-random {
+    background-color: #2196F3;
+    background-image: linear-gradient(to bottom, #42a5f5, #2196F3);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.lifegame-button-clear {
+    background-color: #FF9800;
+    background-image: linear-gradient(to bottom, #ffac33, #FF9800);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .lifegame-container {
+        top: 36px;
+        right: 5px;
+        max-width: 90vw;
+        width: 280px;
+    }
+    
+    .lifegame-content {
+        padding: 12px;
+        gap: 12px;
+    }
+    
+    .lifegame-toggle-button span {
+        display: none;
+    }
+    
+    .lifegame-icon {
+        margin-right: 0;
+    }
+    
+    .lifegame-button {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+/* 添加设置区域样式 */
+.lifegame-settings {
+    padding: 10px;
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.lifegame-control-group {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.lifegame-control-group label {
+    width: 80px;
+    font-size: 12px;
+    color: #ddd;
+    margin-right: 8px;
+}
+
+.lifegame-select {
+    flex: 1;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 8px;
+    min-width: 120px;
+}
+
+.lifegame-button-small {
+    font-size: 12px;
+    padding: 4px 8px;
+    height: auto;
+    min-width: 60px;
+}
+
+.lifegame-slider {
+    flex: 1;
+    background-color: #333;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 3px;
+    margin-right: 8px;
+    outline: none;
+}
+
+.lifegame-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    cursor: pointer;
+}
+
+.lifegame-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    cursor: pointer;
+    border: none;
+}
+
+#lifegame-density-value,
+#lifegame-speed-value {
+    min-width: 40px;
+    font-size: 12px;
+    color: #ddd;
+    text-align: right;
+} 
